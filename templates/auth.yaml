@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy
+    spec:
+      containers:
+        - name: oauth2-proxy
+          image: quay.io/oauth2-proxy/oauth2-proxy:latest
+          args:
+            - "--provider=azure"
+            - "--email-domain=*"
+            - "--http-address=0.0.0.0:4180"
+            - "--upstream=https://{{ .Values.server.host }}:{{ .Values.server.ports.secure }}"
+            - "--cookie-secret={{ .Values.auth.cookieSecret }}"
+            - "--azure-tenant={{ .Values.auth.tenant }}"
+            - "--client-id={{ .Values.auth.clientId }}"
+            - "--client-secret={{ .Values.auth.clientSecret }}"
+            - "--oidc-issuer-url=https://login.microsoftonline.com/{{ .Values.auth.tenant }}/v2.0"
+            
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: oauth2-proxy
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  selector:
+    app: oauth2-proxy
+  ports:
+    - name: http
+      port: 4180
+
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mockserver-secure-ingress
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: secure
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /oauth2
+            pathType: Prefix
+            backend:
+              service:
+                name: oauth2-proxy
+                port:
+                  number: 4180
+
+             

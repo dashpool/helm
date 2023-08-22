@@ -1,0 +1,34 @@
+components:
+  mongo: false
+  ingress: true
+  dashboard: false
+  example: false
+
+
+namespaces:
+  apps: dashpool-apps
+  system: dashpool-system
+  ingress: dashpool-ingress
+
+server:
+  ports:
+    web: 80
+    secure: 443
+    admin: 8443
+    
+system:
+  appName: dashpool
+  admin: dashpool-user
+  crt: 
+  key: 
+
+auth:
+  clientId:
+  clientSecret:
+  tenant:
+  cookieSecret:
+
+  adminAuth:
+  userAuth:
+  
+  

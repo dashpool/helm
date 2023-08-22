@@ -1,0 +1,6 @@
+charts
+update.sh
+dashpool-*.tgz
+.helmignore
+.git
+.github
