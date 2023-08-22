@@ -72,7 +72,11 @@ data:
             secretName:
               dashpool-cfg
 
-
+    experimental:
+      plugins:
+        stripcookie:
+          moduleName: "github.com/nilskohrs/stripcookie"
+          version: "v0.1.0"
 
 ---
 
@@ -163,12 +167,26 @@ spec:
       targetPort: {{ $value }}
 {{- end }}
 
+    # - name: dashboard
+    #   port: 8080
+    #   targetPort: 8080
+  type: LoadBalancer
 
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-internal-service
+  namespace: {{ .Values.namespaces.ingress }}
+spec:
+  selector:
+    app: traefik
+  ports:
     - name: dashboard
       port: 8080
       targetPort: 8080
-  type: LoadBalancer
-
+  type: NodePort
 
 
 ---
@@ -211,7 +229,6 @@ spec:
     scheme: https
     permanent: true
 
-
 ---
 
 
@@ -245,6 +262,27 @@ spec:
 
 
 
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-auth-cookie
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  plugin:
+    stripcookie:
+      cookies:
+      - _oauth2_proxy_0
+      - _oauth2_proxy_1
+      - _oauth2_proxy_2
+      - _oauth2_proxy_3
+      - _oauth2_proxy_4
+      - _oauth2_proxy_5
+
+
+---
 
 
 {{ end }}

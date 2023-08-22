@@ -3,8 +3,11 @@
 Helm charts to setup dashpool
 
 ```
-helm  install dashpool .
+helm install -f myvalues.yaml dashpool .
 kubectl describe secret admin-token -n dashpool-system
+
+helm upgrade -f myvalues.yaml dashpool .
+
 helm uninstall dashpool .
 ```
 
