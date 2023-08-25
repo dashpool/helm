@@ -75,8 +75,8 @@ data:
     experimental:
       plugins:
         stripcookie:
-          moduleName: "github.com/nilskohrs/stripcookie"
-          version: "v0.1.0"
+          moduleName: github.com/portofrotterdam/stripcookie
+          version: v0.1.0
 
 ---
 
@@ -238,11 +238,19 @@ metadata:
   name: auth
   namespace: {{ .Values.namespaces.system }}
 spec:
+{{ if (default .Values.auth.skip) }}
+  headers:
+    customResponseHeaders:
+      X-Forwarded-User: "dummy"
+{{ else }}
   forwardAuth:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.userAuth }}
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Forwarded-User"
+{{ end }}   
+
+
     
 
 ---
@@ -254,11 +262,17 @@ metadata:
   name: admin-auth
   namespace: {{ .Values.namespaces.system }}
 spec:
+{{ if (default .Values.auth.skip) }}
+  headers:
+    customResponseHeaders:
+      X-Forwarded-User: "dummy"
+{{ else }}
   forwardAuth:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.adminAuth }}
     trustForwardHeader: true
     authResponseHeaders:
       - "X-Forwarded-User"
+{{ end }}         
 
 
 
