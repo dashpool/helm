@@ -74,9 +74,16 @@ data:
 
     experimental:
       plugins:
+
+        dashmiddleware:
+          moduleName: github.com/dashpool/dashmiddleware
+          version: v0.0.2
+
         stripcookie:
           moduleName: github.com/portofrotterdam/stripcookie
           version: v0.1.0
+    
+
 
 ---
 
@@ -297,6 +304,19 @@ spec:
 
 
 ---
+
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dash
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  plugin:
+    dashmiddleware:
+      mongohost: {{ .Values.system.mongohost }}
+      dashpooldb: {{ .Values.system.dashpooldb }}
+
 
 
 {{ end }}

@@ -19,6 +19,9 @@ server:
 system:
   appName: dashpool
   admin: dashpool-user
+  mongohost: mongo.dashpool-system:27017
+  mongoexpress: mongo-express.dashpool-system:8081
+  dashpooldb : dashpool
   crt: 
   key: 
 

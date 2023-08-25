@@ -13,6 +13,10 @@ data:
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
         <style>
+          .markdown-body h4 {
+              margin-top: 0;
+              margin-bottom: 0;
+          }        
           .markdown-body {
             box-sizing: border-box;
             min-width: 200px;
@@ -42,7 +46,13 @@ data:
           <ul>
               <li><a href="/dashboard/" target="_blank"><h4>Traefik</h4></a></li>
               <li><a href="/kdashboard/#/workloads?namespace={{ .Values.namespaces.apps }}" target="_blank"><h4>Kubernetes</h4></a></li>
+{{ if .Values.system.mongoexpress }}
+              <li><a href="/mongo/" target="_blank"><h4>MongoDB</h4></a></li>
+{{ end }}              
           </ul>
+
+
+
 
 
         </section>
@@ -238,3 +248,34 @@ spec:
   stripPrefix:
     prefixes:
       - /kdashboard
+
+
+---
+
+{{ if .Values.system.mongoexpress }}
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-traefik-secure-ingress
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: admin
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /mongo
+            pathType: Prefix
+            backend:
+              service:
+                name: mongo-express
+                port:
+                  number: 8081
+
+
+{{ end }}
