@@ -263,7 +263,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: admin
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
 spec:
   rules:
     - host: {{ .Values.server.host }}

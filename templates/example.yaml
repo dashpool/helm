@@ -17,9 +17,8 @@ spec:
     spec:
       containers:
         - name: mock-server
-          image: katacoda/docker-http-server      
-          ports:
-            - containerPort: 80
+          image: dashpool/exampleapp:latest
+          imagePullPolicy: IfNotPresent    
 
 ---
 apiVersion: v1
@@ -33,7 +32,7 @@ spec:
   ports:
     - protocol: TCP
       port: 5000
-      targetPort: 80
+      targetPort: 5000
 
 
 ---
@@ -48,7 +47,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-redirect-https@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-redirect-https@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
 spec:
   rules:
     - host: {{ .Values.server.host }}
@@ -73,7 +72,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: secure
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
 spec:
   rules:
     - host: {{ .Values.server.host }}
