@@ -8,7 +8,7 @@ data:
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Helm Charts</title>
+        <title>Dashpool - Admin</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
@@ -148,7 +148,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: admin
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd 
 spec:
   rules:
     - host: {{ .Values.server.host }}
@@ -263,7 +263,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: admin
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-admin-auth@kubernetescrd, {{ .Values.namespaces.system }}-dash@kubernetescrd
 spec:
   rules:
     - host: {{ .Values.server.host }}

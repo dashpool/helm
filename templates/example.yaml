@@ -47,7 +47,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-redirect-https@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-redirect-https@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd
 spec:
   rules:
     - host: {{ .Values.server.host }}
@@ -72,7 +72,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: secure
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd,{{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd 
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd
 spec:
   rules:
     - host: {{ .Values.server.host }}

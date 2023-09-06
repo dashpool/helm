@@ -77,7 +77,7 @@ data:
 
         dashmiddleware:
           moduleName: github.com/dashpool/dashmiddleware
-          version: v0.0.5
+          version: v0.0.8
 
         stripcookie:
           moduleName: github.com/portofrotterdam/stripcookie
@@ -254,7 +254,8 @@ spec:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.userAuth }}
     trustForwardHeader: true
     authResponseHeaders:
-      - "X-Forwarded-User"
+      - "X-Auth-Request-Email"
+      - "X-Auth-Request-Groups"
 {{ end }}   
 
 
@@ -278,7 +279,8 @@ spec:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.adminAuth }}
     trustForwardHeader: true
     authResponseHeaders:
-      - "X-Forwarded-User"
+      - "X-Auth-Request-Email"
+      - "X-Auth-Request-Groups"
 {{ end }}         
 
 
