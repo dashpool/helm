@@ -60,7 +60,7 @@ data:
                 // This function sends an AJAX request to save the URL with the state name
                 var stateName = document.getElementById("stateInput").value;
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "/api/save/23rasdf34yssdfg346463udfgh/" + stateName, true);
+                xhr.open("GET", "/backend/saveframe/23rasdf34yssdfg346463udfgh/" + stateName, true);
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         // Success! You can handle the response here if needed.
@@ -184,4 +184,40 @@ spec:
                 port:
                   number: 80
 
+---
 
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-secure-ingress
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: secure
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-backend-strip@kubernetescrd 
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /backend
+            pathType: Prefix
+            backend:
+              service:
+                name: backend
+                port:
+                  number: 8080
+
+
+---
+
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: backend-strip
+  namespace: {{ .Values.namespaces.system }}  
+spec:
+  stripPrefix:
+    prefixes:
+      - /backend

@@ -79,11 +79,6 @@ data:
           moduleName: github.com/dashpool/dashmiddleware
           version: v0.0.8
 
-        stripcookie:
-          moduleName: github.com/portofrotterdam/stripcookie
-          version: v0.1.0
-    
-
 
 ---
 
@@ -113,24 +108,14 @@ spec:
           - name: {{ $key }}
             containerPort: {{ $value }}
 {{- end }}
-             
-
           volumeMounts:
             - name: config
               mountPath: /config
-            # - mountPath: "/cert/dashpool.cert"
-            #   name: dashpool-cfg
-            #   subPath: crt
-            # - mountPath: "/cert/dashpool.key"
-            #   name: dashpool-cfg
-            #   subPath: key                  
       volumes:
         - name: config
           configMap:
             name: traefik-config
-        # - name: dashpool-cfg
-        #   secret:
-        #     secretName: dashpool-cfg       
+ 
 
 
 ---
@@ -148,8 +133,8 @@ data:
   tls.key: {{ .Values.system.key}}
 
 
-
 ---
+
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -173,10 +158,6 @@ spec:
       port: {{ $value }}
       targetPort: {{ $value }}
 {{- end }}
-
-    # - name: dashboard
-    #   port: 8080
-    #   targetPort: 8080
   type: LoadBalancer
 
 ---
@@ -284,25 +265,6 @@ spec:
 {{ end }}         
 
 
-
-
----
-
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: strip-auth-cookie
-  namespace: {{ .Values.namespaces.system }}
-spec:
-  plugin:
-    stripcookie:
-      cookies:
-      - _oauth2_proxy_0
-      - _oauth2_proxy_1
-      - _oauth2_proxy_2
-      - _oauth2_proxy_3
-      - _oauth2_proxy_4
-      - _oauth2_proxy_5
 
 
 ---
