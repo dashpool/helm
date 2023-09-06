@@ -1,0 +1,187 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-configmap
+  namespace: {{ .Values.namespaces.system }}
+data:
+  index.html: |
+
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>Dashpool Dummy</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+        <style>
+            .markdown-body h4 {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <section class="markdown-body">
+
+            <a href="https://github.com/dashpool" aria-label="Change your organization’s avatar" class="d-block tooltipped tooltipped-s">
+                <img itemprop="image" class="avatar flex-shrink-0 mb-3 mr-3 mb-md-0 mr-md-4" src="https://avatars.githubusercontent.com/u/142141325?s=200&amp;v=4" width="100" height="100" alt="@dashpool" style="float:left;width:42px;height:42px; margin-right: 5px;">
+                <h1> Dashpool Dummy</h1>
+            </a>
+
+            <div>
+                <input type="text" id="stateInput" placeholder="Enter State Name">
+                <button onclick="saveUrl()">Save</button>
+                <button onclick="loadUrl()">Load</button>
+            </div>
+
+            <iframe id="myIframe" src="/example/?frame=23rasdf34yssdfg346463udfgh" name="page" style="width: 100%; height: 900px;"></iframe>
+
+        </section>
+
+        <script>
+            function saveUrl() {
+                // This function sends an AJAX request to save the URL with the state name
+                var stateName = document.getElementById("stateInput").value;
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "/api/save/23rasdf34yssdfg346463udfgh/" + stateName, true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        // Success! You can handle the response here if needed.
+                        console.log("URL saved successfully");
+                    }
+                };
+                xhr.send();
+            }
+
+            function loadUrl() {
+                // This function loads a new URL into the iframe with the specified state name
+                var stateName = document.getElementById("stateInput").value;
+                var iframe = document.getElementById("myIframe");
+                iframe.src = "/example/?frame=23rasdf34yssdfg346463udfgh&state=" + stateName;
+            }
+        </script>
+    </body>
+
+    </html>
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: config-volume
+        configMap:
+          name: frontend-configmap
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort
+
+
+
+---
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+    traefik.ingress.kubernetes.io/router.tls: "false"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-redirect-https@kubernetescrd
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-secure-ingress
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: secure
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd 
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+
+

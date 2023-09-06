@@ -19,7 +19,9 @@ spec:
         - name: mock-server
           image: dashpool/exampleapp:latest
           imagePullPolicy: IfNotPresent    
-
+          env:
+            - name: DASH_URL_BASE_PATHNAME
+              value: /example/
 ---
 apiVersion: v1
 kind: Service
@@ -78,7 +80,7 @@ spec:
     - host: {{ .Values.server.host }}
       http:
         paths:
-          - path: /
+          - path: /example
             pathType: Prefix
             backend:
               service:
