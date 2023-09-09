@@ -14,6 +14,7 @@ data:
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
         <style>
             .markdown-body h4 {
                 margin-top: 0;
@@ -51,23 +52,44 @@ data:
                 <button onclick="loadUrl()">Load</button>
             </div>
 
-            <iframe id="myIframe" src="/example/?frame=23rasdf34yssdfg346463udfgh" name="page" style="width: 100%; height: 900px;"></iframe>
+            <div id="myFrameContainer">
+              <iframe id="myIframe" src="/example/?frame=23rasdf34yssdfg346463udfgh" name="page" style="width: 100%; height: 900px;"></iframe>
+            </div>
 
         </section>
 
         <script>
             function saveUrl() {
-                // This function sends an AJAX request to save the URL with the state name
+
+              const captureDiv = document.getElementById("myFrameContainer");
+              html2canvas(captureDiv).then(function (canvas) {
+                // This function sends a POST request to save the URL with the state name
                 var stateName = document.getElementById("stateInput").value;
+                var frame = "23rasdf34yssdfg346463udfgh";
+                
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "/backend/saveframe/23rasdf34yssdfg346463udfgh/" + stateName, true);
+                xhr.open("POST", "/backend/savestate", true);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
                 xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        // Success! You can handle the response here if needed.
-                        console.log("URL saved successfully");
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Success! You can handle the response here if needed.
+                            console.log("URL saved successfully");
+                        } else {
+                            // Handle errors here
+                            console.error("Failed to save URL");
+                        }
                     }
                 };
-                xhr.send();
+
+
+                  const base64Image = canvas.toDataURL("image/png");
+                  var data = JSON.stringify({ frame: frame, name: stateName, icon: base64Image });
+                  xhr.send(data);
+              });                
+
+                
             }
 
             function loadUrl() {
