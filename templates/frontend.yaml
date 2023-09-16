@@ -14,7 +14,6 @@ data:
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
         <style>
             .markdown-body h4 {
                 margin-top: 0;
@@ -47,7 +46,7 @@ data:
             </a>
 
             <div>
-                <input type="text" id="stateInput" placeholder="Enter State Name">
+                <input type="text" id="layoutInput" placeholder="Enter State Name">
                 <button onclick="saveUrl()">Save</button>
                 <button onclick="loadUrl()">Load</button>
             </div>
@@ -60,43 +59,34 @@ data:
 
         <script>
             function saveUrl() {
+              var layoutName = document.getElementById("layoutInput").value;
+              var frame = "23rasdf34yssdfg346463udfgh";
+              
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", "/backend/savelayout", true);
+              xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-              const captureDiv = document.getElementById("myFrameContainer");
-              html2canvas(captureDiv).then(function (canvas) {
-                // This function sends a POST request to save the URL with the state name
-                var stateName = document.getElementById("stateInput").value;
-                var frame = "23rasdf34yssdfg346463udfgh";
-                
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "/backend/savestate", true);
-                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+              xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                  if (xhr.status === 200) {
+                    // Success! You can handle the response here if needed.
+                    console.log("URL saved successfully");
+                  } else {
+                    // Handle errors here
+                    console.error("Failed to save URL");
+                  }
+                }
+              };
 
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            // Success! You can handle the response here if needed.
-                            console.log("URL saved successfully");
-                        } else {
-                            // Handle errors here
-                            console.error("Failed to save URL");
-                        }
-                    }
-                };
-
-
-                  const base64Image = canvas.toDataURL("image/png");
-                  var data = JSON.stringify({ frame: frame, name: stateName, icon: base64Image });
-                  xhr.send(data);
-              });                
-
-                
+              var data = JSON.stringify({ frame: frame, name: layoutName });
+              xhr.send(data);
             }
 
             function loadUrl() {
                 // This function loads a new URL into the iframe with the specified state name
-                var stateName = document.getElementById("stateInput").value;
+                var layoutName = document.getElementById("layoutInput").value;
                 var iframe = document.getElementById("myIframe");
-                iframe.src = "/example/?frame=23rasdf34yssdfg346463udfgh&state=" + stateName;
+                iframe.src = "/example/?frame=23rasdf34yssdfg346463udfgh&layout=" + layoutName;
             }
         </script>
     </body>
