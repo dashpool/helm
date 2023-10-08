@@ -82,7 +82,7 @@ metadata:
     traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: secure
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd 
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth-error@kubernetescrd,{{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd 
 spec:
   rules:
     - host: {{ .Values.server.host }}
@@ -96,6 +96,83 @@ spec:
                 port:
                   number: 80
 
+---
+
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-secure-ingress-nopass
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: secure
+    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-strip-auth-cookie@kubernetescrd
+spec:
+  rules:
+    - host: {{ .Values.server.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+          - path: /index.html
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80                  
+          - path: /manifest.json
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+          - path: /assets
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+          - path: /_dash-component-suites
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80                  
+          - path: /_dash-layout
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80      
+          - path: /_dash-dependencies
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80          
+          - path: /service-worker.js
+            pathType: Exact
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80      
+
+                                        
 ---
 
 

@@ -78,6 +78,9 @@ data:
         dashmiddleware:
           moduleName: github.com/dashpool/dashmiddleware
           version: v0.0.16
+        stripcookie:
+          moduleName: github.com/portofrotterdam/stripcookie
+          version: v0.1.0          
 
 
 ---
@@ -111,13 +114,13 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-          livenessProbe:
-            httpGet:
-              path: /   
-              port: 8443
-              scheme: HTTPS
-            initialDelaySeconds: 30  
-            periodSeconds: 10                     
+          # livenessProbe:
+          #   httpGet:
+          #     path: /   
+          #     port: 8443
+          #     scheme: HTTPS
+          #   initialDelaySeconds: 30  
+          #   periodSeconds: 10                     
       volumes:
         - name: config
           configMap:
@@ -291,7 +294,43 @@ spec:
         - plotApi
         - _dash-update-component
         - _dash-layout
-        
+
+
+---
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-auth-cookie
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  plugin:
+    stripcookie:
+      cookies:
+      - _oauth2_proxy_0
+      - _oauth2_proxy_1
+      - _oauth2_proxy_2
+      - _oauth2_proxy_3
+      - _oauth2_proxy_4
+      - _oauth2_proxy_5
+
+---
+
+
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-error
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  errors:
+    status:
+      - "401"
+    query: /index.html      
+    service:
+      name: frontend
+      port: 80
+
 
 
 {{ end }}
