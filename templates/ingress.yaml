@@ -77,7 +77,7 @@ data:
 
         dashmiddleware:
           moduleName: github.com/dashpool/dashmiddleware
-          version: v0.0.16
+          version: v0.0.17
         stripcookie:
           moduleName: github.com/portofrotterdam/stripcookie
           version: v0.1.0          
@@ -114,13 +114,13 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-          # livenessProbe:
-          #   httpGet:
-          #     path: /   
-          #     port: 8443
-          #     scheme: HTTPS
-          #   initialDelaySeconds: 30  
-          #   periodSeconds: 10                     
+          livenessProbe:
+            httpGet:
+              path: /   
+              port: 8443
+              scheme: HTTPS
+            initialDelaySeconds: 30  
+            periodSeconds: 10                     
       volumes:
         - name: config
           configMap:
@@ -239,7 +239,8 @@ spec:
 {{ if (default .Values.auth.skip) }}
   headers:
     customResponseHeaders:
-      X-Forwarded-User: "dummy"
+      X-Auth-Request-Email: "dummy@krueckl.de"
+      X-Auth-Request-Groups: ""
 {{ else }}
   forwardAuth:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.userAuth }}
@@ -264,7 +265,8 @@ spec:
 {{ if (default .Values.auth.skip) }}
   headers:
     customResponseHeaders:
-      X-Forwarded-User: "dummy"
+      X-Auth-Request-Email: "dummy@krueckl.de"
+      X-Auth-Request-Groups: ""
 {{ else }}
   forwardAuth:
     address: http://oauth2-proxy.{{ .Values.namespaces.system }}:4180/oauth2/auth?{{ .Values.auth.adminAuth }}

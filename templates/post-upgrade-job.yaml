@@ -1,0 +1,105 @@
+{{ if .Values.components.example }}
+
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-init-configmap
+  namespace: {{ .Values.namespaces.system }}
+data:
+  init.py: |
+    import os
+    from pymongo import MongoClient
+
+    # Get MongoDB connection details from environment variables
+    mongo_host = os.environ.get('MONGO_SERVICE_HOST', 'localhost')
+    mongo_port = int(os.environ.get('MONGO_SERVICE_PORT', 27017))
+
+    # Initialize MongoDB connection
+    client = MongoClient(mongo_host, mongo_port)
+    db = client['dashpool']
+
+    # Insert a single entry into the 'apps' collection
+    apps_collection = db['apps']
+    # Define the filter to identify the 'Example' entry
+    filter = {'name': 'Eggsample'}
+
+    # Define the update document (this will be inserted if 'Eggsample' doesn't exist)
+    update = {
+        '$set': {
+            'name': 'Eggsample',
+            'url': '/example/',
+            'group': 'Test',
+            'groups': [],
+            'restricted': False,
+            'icon': 'fa-solid fa-egg',
+            'deployment': """ """
+        }
+    }
+    result = apps_collection.update_one(filter, update, upsert=True)
+
+
+    # Insert a single user into the 'users' collection
+    users_collection = db['users']
+    # Define the filter to identify the 'Example' entry
+    filter = {'email': ''}
+
+    # Define the update document (this will be inserted if 'Example' doesn't exist)
+    update = {
+        '$set': {
+            'name': 'Dummy User',
+            'email': '',
+            'groups': []
+        }
+    }
+    result = users_collection.update_one(filter, update, upsert=True)
+
+    # Close the MongoDB connection
+    client.close()
+
+    print('MongoDB initialization complete.')
+
+  requirements.txt: |
+    pymongo 
+
+  init.sh: |
+    pip install -r /app/requirements.txt
+    python /app/init.py
+
+
+---
+
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongo-init-job
+  namespace: {{ .Values.namespaces.system }}
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "1"  
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: mongo-init
+          image: python:3.9-slim
+          command: ["sh", "/app/init.sh"]
+          volumeMounts:
+            - name: mongo-init-scripts
+              mountPath: /app
+      volumes:
+        - name: mongo-init-scripts
+          configMap:
+            name: mongo-init-configmap
+            items:
+              - key: init.py
+                path: init.py
+              - key: requirements.txt
+                path: requirements.txt
+              - key: init.sh
+                path: init.sh
+
+
+{{ end }}
