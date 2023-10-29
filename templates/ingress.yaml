@@ -114,13 +114,13 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-          livenessProbe:
-            httpGet:
-              path: /   
-              port: 8443
-              scheme: HTTPS
-            initialDelaySeconds: 30  
-            periodSeconds: 10                     
+          # livenessProbe:
+          #   httpGet:
+          #     path: /   
+          #     port: 8080
+          #     scheme: HTTP
+          #   initialDelaySeconds: 30  
+          #   periodSeconds: 10                     
       volumes:
         - name: config
           configMap:
@@ -332,6 +332,8 @@ spec:
     service:
       name: frontend
       port: 80
+
+
 
 
 
