@@ -24,6 +24,7 @@ system:
   dashpooldb : dashpool
   crt: 
   key: 
+  kubernetes: 
 
 auth:
   skip: false
