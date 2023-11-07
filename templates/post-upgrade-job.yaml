@@ -22,7 +22,7 @@ data:
     # Insert a single entry into the 'apps' collection
     apps_collection = db['apps']
     # Define the filter to identify the 'Example' entry
-    filter = {'name': 'Eggsample'}
+    filter = {'url': '/example/'}
 
     # Define the update document (this will be inserted if 'Eggsample' doesn't exist)
     update = {
@@ -33,7 +33,8 @@ data:
             'groups': [],
             'restricted': False,
             'icon': 'fa-solid fa-egg',
-            'deployment': """ """
+            'deployment': """ """,
+            'image': "dashpool/exampleapp:latest"
         }
     }
     result = apps_collection.update_one(filter, update, upsert=True)

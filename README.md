@@ -8,7 +8,7 @@ kubectl describe secret admin-token -n dashpool-system
 
 helm upgrade -f myvalues.yaml dashpool .
 
-helm uninstall dashpool .
+helm uninstall dashpool
 ```
 
 
