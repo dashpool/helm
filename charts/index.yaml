@@ -2,7 +2,15 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
-    created: "2023-08-25T14:52:08.846703905+02:00"
+    created: "2023-11-10T09:00:01.737846263+01:00"
+    description: A Helm chart for deploying Dashpool
+    digest: d7773ed52572fcf4f80cbb0b2854b463c20045f0b5cbebb3fc2d3023ef26d435
+    name: dashpool
+    urls:
+    - dashpool-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    created: "2023-11-10T09:00:01.729592219+01:00"
     description: A Helm chart for deploying Dashpool
     digest: 60a69188975bf145feaa88e74d59f37623fec56b43e2907299b238ac3097037c
     name: dashpool
@@ -10,7 +18,7 @@ entries:
     - dashpool-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v2
-    created: "2023-08-25T14:52:08.831666679+02:00"
+    created: "2023-11-10T09:00:01.714670009+01:00"
     description: A Helm chart for deploying Dashpool
     digest: d8190cd1a50c7dde686751f3b2897db2eb666999fed6b71362bcb5c22b90371a
     name: dashpool
@@ -18,7 +26,7 @@ entries:
     - dashpool-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v2
-    created: "2023-08-25T14:52:08.776945206+02:00"
+    created: "2023-11-10T09:00:01.70206398+01:00"
     description: A Helm chart for deploying Dashpool
     digest: 90554ac6aa38b616cc1749e43401977604bd971e624ce7247d3bc6b811e6b883
     name: dashpool
@@ -26,11 +34,11 @@ entries:
     - dashpool-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
-    created: "2023-08-25T14:52:08.765815583+02:00"
+    created: "2023-11-10T09:00:01.686226298+01:00"
     description: A Helm chart for deploying Dashpool
     digest: a4f1895556598011ffa62a415c7c2d5f0ad24c13e83ef4c5197d3d3a6acb5198
     name: dashpool
     urls:
     - dashpool-0.0.1.tgz
     version: 0.0.1
-generated: "2023-08-25T14:52:08.751060518+02:00"
+generated: "2023-11-10T09:00:01.672282433+01:00"
