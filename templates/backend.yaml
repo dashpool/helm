@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: dashpool/backend:latest
+          image: dashpool/backend:{{ .Values.components.version }}
           imagePullPolicy: IfNotPresent
 
 ---

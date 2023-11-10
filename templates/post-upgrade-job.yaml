@@ -22,22 +22,40 @@ data:
     # Insert a single entry into the 'apps' collection
     apps_collection = db['apps']
     # Define the filter to identify the 'Example' entry
-    filter = {'url': '/example/'}
+    
 
     # Define the update document (this will be inserted if 'Eggsample' doesn't exist)
+    filter = {'url': '/example/', 'subpage': 'extra'}
+    update = {
+        '$set': {
+            'name': 'Exsample',
+            'url': '/example/',
+            'subpage': 'extra',
+            'group': 'Test',
+            'groups': [],
+            'restricted': False,
+            'icon': 'fa-solid fa-x',
+            'deployment': """ """,
+            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
+        }
+    }
+    result = apps_collection.update_one(filter, update, upsert=True)
+
+    filter = {'url': '/example/', 'subpage': 'plots'}
     update = {
         '$set': {
             'name': 'Eggsample',
             'url': '/example/',
+            'subpage': 'plots',
             'group': 'Test',
             'groups': [],
             'restricted': False,
             'icon': 'fa-solid fa-egg',
             'deployment': """ """,
-            'image': "dashpool/exampleapp:latest"
+            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
         }
     }
-    result = apps_collection.update_one(filter, update, upsert=True)
+    result = apps_collection.update_one(filter, update, upsert=True)    
 
 
     # Insert a single user into the 'users' collection

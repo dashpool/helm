@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: dashpool/frontend:latest
+        image: dashpool/frontend:{{ .Values.components.version }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000

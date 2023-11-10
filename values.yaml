@@ -4,6 +4,8 @@ components:
   dashboard: false
   example: false
 
+  version: v3.0.0-beta1
+
 
 namespaces:
   apps: dashpool-apps
