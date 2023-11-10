@@ -169,6 +169,11 @@ spec:
       targetPort: {{ $value }}
 {{- end }}
   type: LoadBalancer
+  externalIPs:
+{{- range .Values.server.externalIPs }}
+    - {{ . }}
+{{- end }}
+  
 
 ---
 

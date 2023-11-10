@@ -17,6 +17,8 @@ server:
     web: 80
     secure: 443
     admin: 8443
+  externalIPs:
+    - 10.10.10.10
     
 system:
   appName: dashpool
