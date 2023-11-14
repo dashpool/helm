@@ -3,6 +3,7 @@ components:
   ingress: true
   dashboard: false
   example: false
+  metrics: false
 
   version: v3.0.0-beta1
 
