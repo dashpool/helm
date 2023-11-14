@@ -62,22 +62,23 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-deployment
+  name: admin
   namespace: {{ .Values.namespaces.system }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin-landing-page
+      app: admin
   template:
     metadata:
       labels:
-        app: admin-landing-page
+        app: admin
     spec:
       containers:
 
       - name: admin
-        image: dashpool/admin:{{ .Values.components.version }}
+        #image: dashpool/admin:{{ .Values.components.version }}
+        image: dashpool/admin:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
@@ -104,7 +105,7 @@ metadata:
   namespace: {{ .Values.namespaces.system }}
 spec:
   selector:
-    app: admin-landing-page
+    app: admin
   ports:
     - protocol: TCP
       port: 80

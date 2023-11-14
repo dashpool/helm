@@ -29,6 +29,7 @@ system:
   crt: 
   key: 
   kubernetes: 
+  docker: 
 
 auth:
   skip: false

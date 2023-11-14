@@ -35,8 +35,6 @@ data:
             'groups': [],
             'restricted': False,
             'icon': 'fa-solid fa-x',
-            'deployment': """ """,
-            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
         }
     }
     result = apps_collection.update_one(filter, update, upsert=True)
@@ -51,11 +49,21 @@ data:
             'groups': [],
             'restricted': False,
             'icon': 'fa-solid fa-egg',
-            'deployment': """ """,
-            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
         }
     }
     result = apps_collection.update_one(filter, update, upsert=True)    
+
+    # Insert a single entry into the 'deployment' collection
+    deployment_collection = db['deployments']
+
+    filter = {'url': '/example/'}
+    update = {
+        '$set': {
+            'url': '/example/',
+            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
+        }
+    }
+    result = deployment_collection.update_one(filter, update, upsert=True)      
 
 
     # Insert a single user into the 'users' collection

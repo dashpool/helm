@@ -77,7 +77,7 @@ data:
 
         dashmiddleware:
           moduleName: github.com/dashpool/dashmiddleware
-          version: v0.0.26
+          version: v0.0.28
         stripcookie:
           moduleName: github.com/portofrotterdam/stripcookie
           version: v0.1.0          
