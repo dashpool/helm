@@ -77,8 +77,7 @@ spec:
       containers:
 
       - name: admin
-        #image: dashpool/admin:{{ .Values.components.version }}
-        image: dashpool/admin:latest
+        image: dashpool/admin:{{ .Values.components.version }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
