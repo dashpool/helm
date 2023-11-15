@@ -59,11 +59,16 @@ data:
 {{- range $key, $value := .Values.server.ports }}
         {{ $key }}:
           address: ":{{ $value }}"
-{{- end }}           
+{{- end }}
+        ping:
+          address: ":8082"
 
     api:
       dashboard: true
       insecure: true
+
+    ping:
+      entryPoint: ping
 
     tls:
       stores:
@@ -114,13 +119,13 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-          # livenessProbe:
-          #   httpGet:
-          #     path: /   
-          #     port: {{ .Values.server.ports.admin}}
-          #     scheme: HTTPS
-          #   initialDelaySeconds: 30  
-          #   periodSeconds: 10                     
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8082
+              scheme: HTTP
+            initialDelaySeconds: 30  
+            periodSeconds: 10
       volumes:
         - name: config
           configMap:
