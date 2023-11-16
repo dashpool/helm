@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
 description: A Helm chart for deploying Dashpool
-version: 0.0.7
+version: 0.0.8

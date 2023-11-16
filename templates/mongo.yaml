@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: mongo:7.0.2
+          image: mongo:5.0.22
           ports:
             - containerPort: 27017
 ---
@@ -52,12 +52,16 @@ spec:
     spec:
       containers:
         - name: mongo-express
-          image: mongo-express:1.0.0-alpha.4
+          image: mongo-express:1.0.0-20-alpine3.18
           env:
             - name: ME_CONFIG_MONGODB_SERVER
               value: "mongo"
             - name: ME_CONFIG_SITE_BASEURL
-              value: "/mongo"              
+              value: "/mongo"
+            - name: ME_CONFIG_BASICAUTH_USERNAME
+              value: ""         
+            - name: ME_CONFIG_BASICAUTH_PASSWORD
+              value: ""
           ports:
             - containerPort: 8081
 ---
