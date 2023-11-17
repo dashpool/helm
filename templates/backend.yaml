@@ -17,6 +17,10 @@ spec:
         - name: backend
           image: dashpool/backend:{{ .Values.components.version }}
           imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 10m
+              memory: 150Mi          
 
 ---
 

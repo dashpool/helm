@@ -20,10 +20,18 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 5000
+        resources:
+          requests:
+            cpu: 30m
+            memory: 200Mi     
+        env:
+        - name: SERVICE_WORKER_CACHE_NAME
+          value: {{ .Values.components.version }}   
       volumes:
       - name: config-volume
         configMap:
           name: frontend-configmap
+          
 
 
 ---

@@ -53,6 +53,10 @@ spec:
       containers:
         - name: mongo-express
           image: mongo-express:1.0.0-20-alpine3.18
+          resources:
+            requests:
+              cpu: 20m
+              memory: 100Mi             
           env:
             - name: ME_CONFIG_MONGODB_SERVER
               value: "mongo"

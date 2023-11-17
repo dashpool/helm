@@ -28,7 +28,10 @@ spec:
             - "--oidc-issuer-url=https://login.microsoftonline.com/{{ .Values.auth.tenant }}/v2.0"
             - "--set-xauthrequest=true"
             - "--set-authorization-header=true"
-            
+          resources:
+            requests:
+              cpu: 10m
+              memory: 20Mi            
 
 ---
 

@@ -19,6 +19,13 @@ data:
     client = MongoClient(mongo_host, mongo_port)
     db = client['dashpool']
 
+    # Try to connect to MongoDB, exit if not available
+    try:
+        client.server_info()
+    except:
+        print('MongoDB not available, exiting.')
+        exit(1)
+
     # Insert a single entry into the 'apps' collection
     apps_collection = db['apps']
     # Define the filter to identify the 'Example' entry
@@ -65,6 +72,27 @@ data:
     }
     result = deployment_collection.update_one(filter, update, upsert=True)      
 
+    # Insert all groups into the 'groups' collection
+    groups_collection = db['groups']
+    groups = [
+      {{- range $index, $element := .Values.auth.groups }}
+      {
+      
+        'name': '{{ $element.name }}',
+        'id': '{{ $element.id }}',
+      },
+      {{- end }}
+    ]
+    for group in groups:
+        filter = {'id': group['id']}
+        update = {
+            '$set': {
+                'name': group['name'],
+                'id': group['id'],
+            }
+        }
+        result = groups_collection.update_one(filter, update, upsert=True)
+
 
     # Insert a single user into the 'users' collection
     users_collection = db['users']
@@ -103,7 +131,7 @@ metadata:
   name: mongo-init-job
   namespace: {{ .Values.namespaces.system }}
   annotations:
-    "helm.sh/hook": post-upgrade
+    "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "1"  
 spec:
   template:

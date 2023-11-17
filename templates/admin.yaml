@@ -87,7 +87,11 @@ spec:
               subPath: admin.cfg
             - mountPath: /usr/src/kube.cfg
               name: dashpool-cfg
-              subPath: kubernetes          
+              subPath: kubernetes
+        resources:
+          requests:
+            cpu: 10m
+            memory: 150Mi
       volumes:
       - name: config-volume
         configMap:

@@ -109,6 +109,11 @@ spec:
       containers:
         - name: traefik
           image: traefik:v2.10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 200Mi   
+
           args:
             - "--configfile=/config/traefik.yaml"
           ports:
