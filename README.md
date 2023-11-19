@@ -1,14 +1,14 @@
 # Dashpool - HELM
 
-Helm charts to setup dashpool
+Helm charts to setup dashpool: [**https://dashpool.github.io/helm**](https://dashpool.github.io/helm)
 
 
 | Service   | Build Status | Latest Docker Tag |
 |-----------|--------------|-------------------|
-| Frontend  | [![Frontend Build Status](https://github.com/dashpool/frontend/actions/workflows/build.yml/badge.svg)](https://github.com/dashpool/frontend/actions/workflows/build.yml) | [![Docker Frontend Image](https://img.shields.io/docker/v/dashpool/frontend?sort=semver)](https://hub.docker.com/r/dashpool/frontend/tags) |
-| Backend   | [![Backend Build Status](https://github.com/dashpool/backend/actions/workflows/build.yml/badge.svg)](https://github.com/dashpool/backend/actions/workflows/build.yml) | [![Docker Backend Image](https://img.shields.io/docker/v/dashpool/backend?sort=semver)](https://hub.docker.com/r/dashpool/backend/tags) |
+| Frontend  | [![Frontend Build Status](https://github.com/dashpool/frontend/actions/workflows/docker.yml/badge.svg)](https://github.com/dashpool/frontend/actions/workflows/docker.yml) | [![Docker Frontend Image](https://img.shields.io/docker/v/dashpool/frontend?sort=semver)](https://hub.docker.com/r/dashpool/frontend/tags) |
+| Backend   | [![Backend Build Status](https://github.com/dashpool/backend/actions/workflows/docker.yml/badge.svg)](https://github.com/dashpool/backend/actions/workflows/docker.yml) | [![Docker Backend Image](https://img.shields.io/docker/v/dashpool/backend?sort=semver)](https://hub.docker.com/r/dashpool/backend/tags) |
 | Admin     | [![Admin Build Status](https://github.com/dashpool/admin/actions/workflows/docker.yml/badge.svg)](https://github.com/dashpool/admin/actions/workflows/docker.yml) | [![Docker Admin Image](https://img.shields.io/docker/v/dashpool/admin?sort=semver)](https://hub.docker.com/r/dashpool/admin/tags) |
-| ExampleApp| [![ExampleApp Build Status](https://github.com/dashpool/exampleapp/actions/workflows/build.yml/badge.svg)](https://github.com/dashpool/exampleapp/actions/workflows/build.yml) | [![Docker ExampleApp Image](https://img.shields.io/docker/v/dashpool/exampleapp?sort=semver)](https://hub.docker.com/r/dashpool/exampleapp/tags) |
+| ExampleApp| [![ExampleApp Build Status](https://github.com/dashpool/exampleapp/actions/workflows/docker.yml/badge.svg)](https://github.com/dashpool/exampleapp/actions/workflows/docker.yml) | [![Docker ExampleApp Image](https://img.shields.io/docker/v/dashpool/exampleapp?sort=semver)](https://hub.docker.com/r/dashpool/exampleapp/tags) |
 
 
 ## Setup
