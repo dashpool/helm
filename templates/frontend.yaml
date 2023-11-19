@@ -23,10 +23,26 @@ spec:
         resources:
           requests:
             cpu: 30m
-            memory: 200Mi     
+            memory: 200Mi
+        livenessProbe:
+          httpGet:
+            path: /index.html
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
         env:
         - name: SERVICE_WORKER_CACHE_NAME
-          value: {{ .Values.components.version }}   
+          value: {{ .Values.components.version }}
+        - name: MONGODB_URI
+          value: {{ .Values.system.mongohost }}
+        - name: MONGODB_DATABASE
+          value: {{ .Values.system.dashpooldb }}
+{{ if .Values.auth.skip }}          
+        - name: SKIP_AUTH
+          value: "true"
+{{ end }}
       volumes:
       - name: config-volume
         configMap:

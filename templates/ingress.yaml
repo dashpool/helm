@@ -254,7 +254,7 @@ spec:
 {{ if (default .Values.auth.skip) }}
   headers:
     customResponseHeaders:
-      X-Auth-Request-Email: "dummy@krueckl.de"
+      X-Auth-Request-Email: "dummy@dashpool.com"
       X-Auth-Request-Groups: ""
 {{ else }}
   forwardAuth:
@@ -280,7 +280,7 @@ spec:
 {{ if (default .Values.auth.skip) }}
   headers:
     customResponseHeaders:
-      X-Auth-Request-Email: "dummy@krueckl.de"
+      X-Auth-Request-Email: "dummy@dashpool.com"
       X-Auth-Request-Groups: ""
 {{ else }}
   forwardAuth:

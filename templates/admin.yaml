@@ -85,13 +85,24 @@ spec:
             - name: config-volume
               mountPath: /usr/src/admin.cfg
               subPath: admin.cfg
-            - mountPath: /usr/src/kube.cfg
-              name: dashpool-cfg
-              subPath: kubernetes
+            # - mountPath: /usr/src/kube.cfg
+            #   name: dashpool-cfg
+            #   subPath: kubernetes
         resources:
           requests:
             cpu: 10m
             memory: 150Mi
+        env:
+        - name: MONGODB_URI
+          value: {{ .Values.system.mongohost }}
+        - name: MONGODB_DATABASE
+          value: {{ .Values.system.dashpooldb }}
+        - name: SHOW_MONGO
+          value: "{{ .Values.components.mongo }}"
+        - name: SHOW_TRAEFIK
+          value: "{{ .Values.components.ingress }}"
+        - name: SHOW_KDASHBOARD
+          value: "{{ .Values.components.dashboard }}"
       volumes:
       - name: config-volume
         configMap:
@@ -99,6 +110,7 @@ spec:
       - name: dashpool-cfg
         secret:
           secretName: dashpool-cfg
+      serviceAccountName: {{ .Values.system.admin }}
 ---
 
 apiVersion: v1
@@ -259,8 +271,105 @@ spec:
 
 ---
 
-{{ if .Values.system.mongoexpress }}
 
+
+{{ if .Values.crons.adminUpdate }}
+# cronjob to update the admin dashboard
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: job-admin-update
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  schedule: {{ .Values.crons.adminUpdate }}
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          containers:
+          - name: admin
+            
+            image: dashpool/admin:{{ .Values.components.version }}
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh"]
+            args: ["-c", "python3 /usr/src/app/cron.py"]
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/src/admin.cfg
+              subPath: admin.cfg
+            env:
+            - name: MONGODB_URI
+              value: {{ .Values.system.mongohost }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.system.dashpooldb }}
+          restartPolicy: OnFailure
+          volumes:
+          - name: config-volume
+            configMap:
+              name: admin-configmap
+          - name: dashpool-cfg
+            secret:
+              secretName: dashpool-cfg  
+          serviceAccountName: {{ .Values.system.admin }}
+
+
+
+---
+{{ end }}
+
+
+{{ if .Values.crons.dbClean }}
+
+# cronjob to update the admin dashboard
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: job-db-clean
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  schedule: {{ .Values.crons.dbClean }}
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 600
+      template:
+        spec:
+          containers:
+          - name: admin
+            
+            image: dashpool/admin:{{ .Values.components.version }}
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh"]
+            args: ["-c", "python3 /usr/src/app/cron.py"]
+            volumeMounts:
+            - name: config-volume
+              mountPath: /usr/src/admin.cfg
+              subPath: admin.cfg
+            env:
+            - name: DASHPOOL_DB_CLEAN
+              value: "true"
+            - name: MONGODB_URI
+              value: {{ .Values.system.mongohost }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.system.dashpooldb }}      
+
+          restartPolicy: OnFailure
+          volumes:
+          - name: config-volume
+            configMap:
+              name: admin-configmap
+          - name: dashpool-cfg
+            secret:
+              secretName: dashpool-cfg  
+          serviceAccountName: {{ .Values.system.admin }}
+     
+
+---
+{{  end }}
+
+
+
+{{ if .Values.system.mongoexpress }}
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress

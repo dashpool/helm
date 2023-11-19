@@ -20,7 +20,21 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 150Mi          
+              memory: 150Mi    
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: MONGODB_URI
+              value: {{ .Values.system.mongohost }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.system.dashpooldb }}
 
 ---
 

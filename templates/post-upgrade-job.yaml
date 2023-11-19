@@ -1,160 +1,39 @@
-{{ if .Values.components.example }}
-
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mongo-init-configmap
-  namespace: {{ .Values.namespaces.system }}
-data:
-  init.py: |
-    import os
-    from pymongo import MongoClient
-
-    # Get MongoDB connection details from environment variables
-    mongo_host = os.environ.get('MONGO_SERVICE_HOST', 'localhost')
-    mongo_port = int(os.environ.get('MONGO_SERVICE_PORT', 27017))
-
-    # Initialize MongoDB connection
-    client = MongoClient(mongo_host, mongo_port)
-    db = client['dashpool']
-
-    # Try to connect to MongoDB, exit if not available
-    try:
-        client.server_info()
-    except:
-        print('MongoDB not available, exiting.')
-        exit(1)
-
-    # Insert a single entry into the 'apps' collection
-    apps_collection = db['apps']
-    # Define the filter to identify the 'Example' entry
-    
-
-    # Define the update document (this will be inserted if 'Eggsample' doesn't exist)
-    filter = {'url': '/example/', 'subpage': 'extra'}
-    update = {
-        '$set': {
-            'name': 'Exsample',
-            'url': '/example/',
-            'subpage': 'extra',
-            'group': 'Test',
-            'groups': [],
-            'restricted': False,
-            'icon': 'fa-solid fa-x',
-        }
-    }
-    result = apps_collection.update_one(filter, update, upsert=True)
-
-    filter = {'url': '/example/', 'subpage': 'plots'}
-    update = {
-        '$set': {
-            'name': 'Eggsample',
-            'url': '/example/',
-            'subpage': 'plots',
-            'group': 'Test',
-            'groups': [],
-            'restricted': False,
-            'icon': 'fa-solid fa-egg',
-        }
-    }
-    result = apps_collection.update_one(filter, update, upsert=True)    
-
-    # Insert a single entry into the 'deployment' collection
-    deployment_collection = db['deployments']
-
-    filter = {'url': '/example/'}
-    update = {
-        '$set': {
-            'url': '/example/',
-            'image': "dashpool/exampleapp:{{ .Values.components.version }}"
-        }
-    }
-    result = deployment_collection.update_one(filter, update, upsert=True)      
-
-    # Insert all groups into the 'groups' collection
-    groups_collection = db['groups']
-    groups = [
-      {{- range $index, $element := .Values.auth.groups }}
-      {
-      
-        'name': '{{ $element.name }}',
-        'id': '{{ $element.id }}',
-      },
-      {{- end }}
-    ]
-    for group in groups:
-        filter = {'id': group['id']}
-        update = {
-            '$set': {
-                'name': group['name'],
-                'id': group['id'],
-            }
-        }
-        result = groups_collection.update_one(filter, update, upsert=True)
-
-
-    # Insert a single user into the 'users' collection
-    users_collection = db['users']
-    # Define the filter to identify the 'Example' entry
-    filter = {'email': ''}
-
-    # Define the update document (this will be inserted if 'Example' doesn't exist)
-    update = {
-        '$set': {
-            'name': 'Dummy User',
-            'email': '',
-            'groups': []
-        }
-    }
-    result = users_collection.update_one(filter, update, upsert=True)
-
-    # Close the MongoDB connection
-    client.close()
-
-    print('MongoDB initialization complete.')
-
-  requirements.txt: |
-    pymongo 
-
-  init.sh: |
-    pip install -r /app/requirements.txt
-    python /app/init.py
-
-
----
-
 
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: mongo-init-job
+  name: dashpool-init
   namespace: {{ .Values.namespaces.system }}
   annotations:
     "helm.sh/hook": post-install,post-upgrade
     "helm.sh/hook-weight": "1"  
 spec:
+  ttlSecondsAfterFinished: 300
   template:
     spec:
       restartPolicy: Never
       containers:
-        - name: mongo-init
-          image: python:3.9-slim
-          command: ["sh", "/app/init.sh"]
+        - name: dashpool-init
+          image: dashpool/admin:{{ .Values.components.version }}
+          command: ["/bin/sh"]
+          args: ["-c", "python3 /usr/src/app/cron.py"]
           volumeMounts:
-            - name: mongo-init-scripts
-              mountPath: /app
+            - name: config-volume
+              mountPath: /usr/src/admin.cfg
+              subPath: admin.cfg
+          env:
+          - name: DASHPOOL_VERSION
+            value: "{{ .Values.components.version }}"
+          - name: MONGODB_URI
+            value: {{ .Values.system.mongohost }}
+          - name: MONGODB_DATABASE
+            value: {{ .Values.system.dashpooldb }}                
       volumes:
-        - name: mongo-init-scripts
-          configMap:
-            name: mongo-init-configmap
-            items:
-              - key: init.py
-                path: init.py
-              - key: requirements.txt
-                path: requirements.txt
-              - key: init.sh
-                path: init.sh
+      - name: config-volume
+        configMap:
+          name: admin-configmap
+      - name: dashpool-cfg
+        secret:
+          secretName: dashpool-cfg  
+      serviceAccountName: {{ .Values.system.admin }}
 
-
-{{ end }}
