@@ -1,50 +1,165 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Helm Charts</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
-    <style>
+
+<head>
+  <title>Helm Charts</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/2.10.0/github-markdown.min.css" />
+  <style>
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 45px;
+    }
+
+    @media (max-width: 767px) {
       .markdown-body {
-        box-sizing: border-box;
-        min-width: 200px;
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 45px;
+        padding: 15px;
       }
-      @media (max-width: 767px) {
-        .markdown-body {
-          padding: 15px;
-        }
-      }
-    </style>
-  </head>
+    }
 
-  <body>
+    table {
+      margin-left: 60px;
+      border-collapse: collapse;
+    }
 
-    <section class="markdown-body">
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-      <a href="https://github.com/dashpool" aria-label="Change your organization’s avatar" class="d-block tooltipped tooltipped-s">
-        <img itemprop="image" class="avatar flex-shrink-0 mb-3 mr-3 mb-md-0 mr-md-4" src="https://avatars.githubusercontent.com/u/142141325?s=200&amp;v=4" width="100" height="100" alt="@dashpool" style="float:left;width:42px;height:42px; margin-right: 5px;">
-        <h1> Dashpool Helm Charts</h1>
-      </a>
+    td:nth-child(2) {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml/dist/js-yaml.min.js"></script>
+</head>
 
-      
+<body>
 
-      <h2>Usage</h2>
-      <pre lang="no-highlight"><code>
+  <section class="markdown-body">
+
+    <a href="https://github.com/dashpool" class="d-block tooltipped tooltipped-s">
+      <img itemprop="image" class="avatar flex-shrink-0 mb-3 mr-3 mb-md-0 mr-md-4"
+        src="https://avatars.githubusercontent.com/u/142141325?s=200&amp;v=4" width="100" height="100" alt="@dashpool"
+        style="float:left;width:42px;height:42px; margin-right: 5px;">
+      <h1> Dashpool Helm Charts
+
+        <img
+          src="https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fdashpool.github.io%2Fhelm%2Findex.yaml&query=entries.dashpool%5B0%5D.version&logo=helm&label=Helm&color=ff6600"
+          alt="Helm Chart Version" height="32" style="float: right;">
+      </h1>
+    </a>
+
+
+
+
+
+    <h2>Usage</h2>
+    <pre lang="no-highlight"><code>
         helm repo add dashpool https://dashpool.github.io/helm 
         helm repo update
         helm search repo dashpool/dashpool
         helm install dashpool dashpool/dashpool
-        helm upgrade dashpool dashpool/dashpool --version 0.0.1
+        helm upgrade dashpool dashpool/dashpool --version 3.0.0
       </code></pre>
 
 
+    <h2>Latest Versions</h2>
+    <table id="versionsTable">
+      <thead>
+        <tr>
+          <th>Version</th>
+          <th>Created</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody id="versionsBody"></tbody>
+    </table>
+
+  </section>
 
 
-    </section>
-  </body>
+  <script>
+    // Function to fetch the YAML file...
+    async function fetchYAML(url) {
+      try {
+        const response = await fetch(url);
+        const text = await response.text();
+        return text;
+      } catch (error) {
+        console.error('Error fetching YAML:', error);
+        return null;
+      }
+    }
+
+    // Function to parse the YAML content
+    function parseYAML(yamlContent) {
+      try {
+        const jsonData = jsyaml.load(yamlContent);
+
+        if (jsonData && jsonData.entries && Array.isArray(jsonData.entries.dashpool)) {
+          const versions = jsonData.entries.dashpool;
+
+          const versionsBody = document.getElementById('versionsBody');
+
+          versions.forEach(entry => {
+            if (!entry.version || !entry.created || !entry.description) {
+              console.error('Invalid data structure in YAML.');
+              return;
+            }
+            if (entry.version.startsWith('0.0')  ) {
+              return;
+            }
+            const row = document.createElement('tr');
+
+            const versionCell = document.createElement('td');
+            versionCell.textContent = entry.version;
+            row.appendChild(versionCell);
+
+            const createdCell = document.createElement('td');
+            const createdDate = new Date(entry.created);
+            const options = { year: 'numeric', month: 'short', day: 'numeric'}
+            createdCell.textContent = createdDate.toLocaleDateString('en-US', options);
+            row.appendChild(createdCell);
+
+            const descriptionCell = document.createElement('td');
+            descriptionCell.textContent = entry.description;
+            row.appendChild(descriptionCell);
+
+            versionsBody.appendChild(row);
+          });
+        } else {
+          console.error('Invalid or empty data structure in YAML.');
+        }
+      } catch (error) {
+        console.error('Error parsing YAML:', error);
+      }
+    }
+
+    // URL of the YAML file
+    const yamlURL = 'https://dashpool.github.io/helm/index.yaml';
+
+    fetchYAML(yamlURL)
+      .then(yamlContent => {
+        if (yamlContent) {
+          parseYAML(yamlContent);
+        }
+      });
+  </script>
+
+</body>
+
+
+
+
+
 </html>
