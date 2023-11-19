@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Beta release of Dashpool with Helm
-version: v3.0.0-beta5
+description: Single basecontainer for all python apps
+version: v3.0.0-beta6
