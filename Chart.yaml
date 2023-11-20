@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Single basecontainer for all python apps
-version: v3.0.0-beta6
+description: First release of Version 3
+version: v3.0.0

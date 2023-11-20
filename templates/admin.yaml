@@ -103,6 +103,8 @@ spec:
           value: "{{ .Values.components.ingress }}"
         - name: SHOW_KDASHBOARD
           value: "{{ .Values.components.dashboard }}"
+        - name: SUPER_ADMINS
+          value: {{ .Values.auth.superAdmins }}
       volumes:
       - name: config-volume
         configMap:
