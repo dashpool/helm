@@ -35,6 +35,8 @@ spec:
               value: {{ .Values.system.mongohost }}
             - name: MONGODB_DATABASE
               value: {{ .Values.system.dashpooldb }}
+            - name: APP_NAMESPACE
+              value: {{ .Values.namespaces.apps }}
 
 ---
 

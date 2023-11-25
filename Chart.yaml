@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: First release of Version 3
-version: v3.0.0
+description: add dash-express with long callbacks
+version: v3.0.1

@@ -116,7 +116,7 @@
               console.error('Invalid data structure in YAML.');
               return;
             }
-            if (entry.version.startsWith('0.0')  ) {
+            if (entry.version.startsWith('0.0') || entry.version.includes('beta')) {
               return;
             }
             const row = document.createElement('tr');
