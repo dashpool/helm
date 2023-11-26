@@ -18,5 +18,13 @@ done
 cp dashpool-*.tgz ./charts
 rm -f dashpool-*.tgz
 
+# create a copy of the ./charts/index.yaml
+cp ./charts/index.yaml ./index-old.yaml
+
 helm repo index ./charts
+
+# update the timestamps in the new index.yaml
+python3 ./update.py
+
+rm -f ./index-old.yaml
 
