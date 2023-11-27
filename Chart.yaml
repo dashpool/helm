@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: add longcallback service
-version: v3.0.2
+description: add external apps
+version: v3.0.3

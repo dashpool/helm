@@ -56,6 +56,10 @@ data:
 {{- range $key, $value := .Values.namespaces }}
     {{ $key }} = {{ $value }}
 {{- end }}   
+    [ports]
+{{- range $key, $value := .Values.server.ports }}
+    {{ $key }} = {{ $value }}
+{{- end }}
 ---
 
 
