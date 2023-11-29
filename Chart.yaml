@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: add external apps
-version: v3.0.3
+description: fix apps without plots
+version: v3.0.4
