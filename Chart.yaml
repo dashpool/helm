@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix apps without plots
-version: v3.0.4
+description: extra mongo express flag
+version: v3.0.5

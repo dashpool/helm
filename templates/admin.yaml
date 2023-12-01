@@ -102,7 +102,7 @@ spec:
         - name: MONGODB_DATABASE
           value: {{ .Values.system.dashpooldb }}
         - name: SHOW_MONGO
-          value: "{{ .Values.components.mongo }}"
+          value: "{{ .Values.components.mongoexpress }}"
         - name: SHOW_TRAEFIK
           value: "{{ .Values.components.ingress }}"
         - name: SHOW_KDASHBOARD
