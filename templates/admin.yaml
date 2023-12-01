@@ -98,7 +98,7 @@ spec:
             memory: 150Mi
         env:
         - name: MONGODB_URI
-          value: {{ .Values.system.mongohost }}
+          value: mongodb://{{ .Values.system.mongohost }}
         - name: MONGODB_DATABASE
           value: {{ .Values.system.dashpooldb }}
         - name: SHOW_MONGO
@@ -306,7 +306,7 @@ spec:
               subPath: admin.cfg
             env:
             - name: MONGODB_URI
-              value: {{ .Values.system.mongohost }}
+              value: mongodb://{{ .Values.system.mongohost }}
             - name: MONGODB_DATABASE
               value: {{ .Values.system.dashpooldb }}
           restartPolicy: OnFailure
@@ -355,7 +355,7 @@ spec:
             - name: DASHPOOL_DB_CLEAN
               value: "true"
             - name: MONGODB_URI
-              value: {{ .Values.system.mongohost }}
+              value: mongodb://{{ .Values.system.mongohost }}
             - name: MONGODB_DATABASE
               value: {{ .Values.system.dashpooldb }}      
 

@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2023-12-01T11:41:37.811386967+01:00'
+    description: extra mongo express flag
+    digest: c9d499dd7e4af47458d73529a9a57ee11f86faf5f8675c382cca01cb61aafe26
+    name: dashpool
+    urls:
+    - dashpool-v3.0.6.tgz
+    version: v3.0.6
+  - apiVersion: v2
     created: '2023-12-01T11:25:53.673675723+01:00'
     description: extra mongo express flag
     digest: 9b029a64b309b5ef1af0aab3eaf0b2915cb702a27d10d152cb287217a3aecba8
@@ -49,4 +57,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2023-12-01T11:25:53.598896421+01:00'
+generated: '2023-12-01T11:41:37.755212424+01:00'

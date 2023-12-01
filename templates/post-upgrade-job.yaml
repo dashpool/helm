@@ -25,7 +25,7 @@ spec:
           - name: DASHPOOL_VERSION
             value: "{{ .Values.components.version }}"
           - name: MONGODB_URI
-            value: {{ .Values.system.mongohost }}
+            value: mongodb://{{ .Values.system.mongohost }}
           - name: MONGODB_DATABASE
             value: {{ .Values.system.dashpooldb }}                
       volumes:

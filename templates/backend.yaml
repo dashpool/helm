@@ -32,7 +32,7 @@ spec:
             failureThreshold: 3
           env:
             - name: MONGODB_URI
-              value: {{ .Values.system.mongohost }}
+              value: mongodb://{{ .Values.system.mongohost }}
             - name: MONGODB_DATABASE
               value: {{ .Values.system.dashpooldb }}
             - name: APP_NAMESPACE

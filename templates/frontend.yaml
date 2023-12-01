@@ -36,7 +36,7 @@ spec:
         - name: SERVICE_WORKER_CACHE_NAME
           value: {{ .Values.components.version }}
         - name: MONGODB_URI
-          value: {{ .Values.system.mongohost }}
+          value: mongodb://{{ .Values.system.mongohost }}
         - name: MONGODB_DATABASE
           value: {{ .Values.system.dashpooldb }}
 {{ if .Values.auth.skip }}          
