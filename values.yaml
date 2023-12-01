@@ -5,7 +5,7 @@ components:
   dashboard: false
   metrics: true
 
-  version: v3.0.4
+  version: v3.0.8
 
 
 namespaces:

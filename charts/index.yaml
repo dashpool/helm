@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2023-12-01T15:13:40.792279811+01:00'
+    description: fix plot open issue
+    digest: 628e7b13906d7fb15e4ef927b1f0800825bdee5252d4faf72d755ebaacb5f9ee
+    name: dashpool
+    urls:
+    - dashpool-v3.0.8.tgz
+    version: v3.0.8
+  - apiVersion: v2
     created: '2023-12-01T11:41:37.811386967+01:00'
     description: extra mongo express flag
     digest: c9d499dd7e4af47458d73529a9a57ee11f86faf5f8675c382cca01cb61aafe26
@@ -57,4 +65,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2023-12-01T11:41:37.755212424+01:00'
+generated: '2023-12-01T15:13:40.679405864+01:00'
