@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix plot open issue
-version: v3.0.8
+description: fix multiple plots per callback
+version: v3.0.9
