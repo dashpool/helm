@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix multiple plots per callback
-version: v3.0.9
+description: add clear cache features
+version: v3.0.10

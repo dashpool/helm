@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-01-01T16:23:07.670660205+01:00'
+    description: add clear cache features
+    digest: 427d85bb58461875894b5f2de1155874c8a952ba01675e9ced3bee599a1b5fce
+    name: dashpool
+    urls:
+    - dashpool-v3.0.10.tgz
+    version: v3.0.10
+  - apiVersion: v2
     created: '2023-12-13T15:25:40.385880346+01:00'
     description: fix multiple plots per callback
     digest: f0de88c37afa1d50d3e22bde7397f704c68c416a59e8b55c96ae5365f9f9a7ea
@@ -73,4 +81,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2023-12-13T15:25:40.276978002+01:00'
+generated: '2024-01-01T16:23:07.04329177+01:00'
