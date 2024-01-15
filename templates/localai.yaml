@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: localai
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: localai
+  template:
+    metadata:
+      labels:
+        app: localai
+    spec:
+      containers:
+        - name: localai
+          image: dashpool/localai:1
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 6000Mi    
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: localai
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  selector:
+    app: localai
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
