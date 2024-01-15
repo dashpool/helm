@@ -4,6 +4,7 @@ components:
   ingress: true
   dashboard: false
   metrics: true
+  localai: false
 
   version: v3.0.10
 
