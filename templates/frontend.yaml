@@ -39,6 +39,10 @@ spec:
           value: mongodb://{{ .Values.system.mongohost }}
         - name: MONGODB_DATABASE
           value: {{ .Values.system.dashpooldb }}
+{{ if .Values.components.localai }}          
+        - name: DASHPOOL_AI_URL
+          value: {{ .Values.system.aiurl }}
+{{ end }}
 {{ if .Values.auth.skip }}          
         - name: SKIP_AUTH
           value: "true"
@@ -120,8 +124,8 @@ spec:
                 port:
                   number: 80
 
----
 
+---
 
 
 apiVersion: networking.k8s.io/v1
