@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: add clear cache features
-version: v3.0.10
+description: test a chatai
+version: v3.0.11
