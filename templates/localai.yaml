@@ -71,7 +71,11 @@ spec:
             requests:
               cpu: 100m
               memory: 500Mi    
-
+          env:
+            - name: MONGODB_URI
+              value: mongodb://{{ .Values.system.mongohost }}
+            - name: MONGODB_DATABASE
+              value: {{ .Values.system.dashpooldb }}
 
 ---
 
