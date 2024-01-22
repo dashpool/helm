@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: chatai with text embeddings
-version: v3.0.13
+description: fix chat reaction
+version: v3.0.14

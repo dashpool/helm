@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: localai
-          image: dashpool/localai:1
+          image: dashpool/localai:2
           imagePullPolicy: IfNotPresent
           resources:
             requests:
@@ -25,7 +25,7 @@ spec:
               memory: 6000Mi 
           env:
           - name: DEBUG
-            value: "True"
+            value: "False"
           - name: THREADS
             value: "8"
             
