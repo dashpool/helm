@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
-    created: '2024-01-22T20:22:37.769670504+01:00'
+    created: '2024-01-22T20:25:08.907141532+01:00'
     description: fix chat reaction
-    digest: 8adc33e032ae90292ff63376195214113fd1173dc5ec0109ed23bea139b7c221
+    digest: 285dd3f7550485c3569f8068377c9bec3e5ed7b70ff35c49ba661a3a7fc264c5
     name: dashpool
     urls:
     - dashpool-v3.0.14.tgz
@@ -105,4 +105,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-01-22T20:22:37.731190639+01:00'
+generated: '2024-01-22T20:25:08.869588973+01:00'

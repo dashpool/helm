@@ -6,7 +6,7 @@ components:
   metrics: true
   localai: false
 
-  version: v3.0.13
+  version: v3.0.14
 
 
 namespaces:
