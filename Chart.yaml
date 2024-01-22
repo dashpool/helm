@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: test a chatai
-version: v3.0.11
+description: chatai with text embeddings
+version: v3.0.13
