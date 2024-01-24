@@ -25,7 +25,7 @@ spec:
               memory: 6000Mi 
           env:
           - name: DEBUG
-            value: "False"
+            value: "True"
           - name: THREADS
             value: "8"
             
@@ -46,78 +46,6 @@ spec:
       port: 8080
       targetPort: 8080
 
----
 
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: chatai
-  namespace: {{ .Values.namespaces.system }}
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: chatai
-  template:
-    metadata:
-      labels:
-        app: chatai
-    spec:
-      containers:
-        - name: chatai
-          image: dashpool/chatai:{{ .Values.components.version }}
-          imagePullPolicy: IfNotPresent
-          resources:
-            requests:
-              cpu: 100m
-              memory: 500Mi    
-          env:
-            - name: MONGODB_URI
-              value: mongodb://{{ .Values.system.mongohost }}
-            - name: MONGODB_DATABASE
-              value: {{ .Values.system.dashpooldb }}
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: chatai
-  namespace: {{ .Values.namespaces.system }}
-spec:
-  selector:
-    app: chatai
-  ports:
-    - protocol: TCP
-      port: 5000
-      targetPort: 5000
-
-
----
-
-
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: chatai-secure-ingress
-  namespace: {{ .Values.namespaces.system }}
-  annotations:
-    traefik.ingress.kubernetes.io/rule-type: "PathPrefixStrip"
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.entrypoints: secure
-    traefik.ingress.kubernetes.io/router.middlewares: {{ .Values.namespaces.system }}-auth-error@kubernetescrd,{{ .Values.namespaces.system }}-auth@kubernetescrd,{{ .Values.namespaces.system }}-dash@kubernetescrd 
-spec:
-  rules:
-    - host: {{ .Values.server.host }}
-      http:
-        paths:
-          - path: /chatai
-            pathType: Prefix
-            backend:
-              service:
-                name: chatai
-                port:
-                  number: 5000
 
 {{ end }}
