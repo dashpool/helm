@@ -39,7 +39,7 @@ spec:
           value: mongodb://{{ .Values.system.mongohost }}
         - name: MONGODB_DATABASE
           value: {{ .Values.system.dashpooldb }}
-{{ if .Values.components.localai }}          
+{{ if .Values.components.chatai }}          
         - name: DASHPOOL_AI_URL
           value: {{ .Values.system.aiurl }}
 {{ end }}
