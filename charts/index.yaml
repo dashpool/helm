@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-02-19T15:13:45.744344254+01:00'
+    description: move chatai to apps
+    digest: 5de192849bedb05143a607061fc06b640927355d074da5aeb4aca03210101d24
+    name: dashpool
+    urls:
+    - dashpool-v3.0.15.tgz
+    version: v3.0.15
+  - apiVersion: v2
     created: '2024-01-22T20:25:08.907141532+01:00'
     description: fix chat reaction
     digest: 285dd3f7550485c3569f8068377c9bec3e5ed7b70ff35c49ba661a3a7fc264c5
@@ -105,4 +113,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-01-22T20:25:08.869588973+01:00'
+generated: '2024-02-19T15:13:45.631220764+01:00'
