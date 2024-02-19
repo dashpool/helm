@@ -108,7 +108,7 @@ spec:
       serviceAccountName: traefik-ingress-controller
       containers:
         - name: traefik
-          image: traefik:v2.10
+          image: traefik:v2.11
           resources:
             requests:
               cpu: 50m
