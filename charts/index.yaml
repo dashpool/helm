@@ -2,21 +2,13 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
-    created: '2024-05-14T10:53:48.732042385+02:00'
+    created: '2024-05-14T12:35:19.14775632+02:00'
     description: Config Maps for CI updates
-    digest: 47cc7954a626a9216e412779e1da45ba2bbd3fb48a3467e73ad7eca078f79440
+    digest: 221b7fe3e61718ad6e1a0c9fa8b063a1135113f516a9300ca71b3c10d8a5c1bf
     name: dashpool
     urls:
-    - dashpool-v3.0.17.tgz
-    version: v3.0.17
-  - apiVersion: v2
-    created: '2024-05-14T08:18:24.256303613+02:00'
-    description: Config Maps for CI updates
-    digest: e7170b7ca7899ad4f59fd1ca90e074517b6f17e24a3026885f0994191a6bee15
-    name: dashpool
-    urls:
-    - dashpool-v3.0.16.tgz
-    version: v3.0.16
+    - dashpool-v3.0.18.tgz
+    version: v3.0.18
   - apiVersion: v2
     created: '2024-02-19T15:13:45.744344254+01:00'
     description: move chatai to apps
@@ -129,4 +121,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-05-14T10:53:48.616630689+02:00'
+generated: '2024-05-14T12:35:19.031613019+02:00'
