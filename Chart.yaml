@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Config Maps for CI updates
-version: v3.0.18
+description: Update Admin Apps
+version: v3.0.20
