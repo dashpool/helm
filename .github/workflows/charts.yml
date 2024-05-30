@@ -37,6 +37,17 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: './charts'
+
+
+      - name: Checkout dashpool/frontend
+        uses: actions/checkout@v3
+        with:
+          repository: dashpool/frontend
+          path: frontend
+      - name: Copy bootstrap.css to artifact
+        run: cp frontend/app/assets/bootstrap.css ./charts/bootstrap.css
+      
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2

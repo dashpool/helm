@@ -311,6 +311,7 @@ spec:
         - plotApi
         - _dash-update-component
         - _dash-layout
+        - api
 
 
 ---
