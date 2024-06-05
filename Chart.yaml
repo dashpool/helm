@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Update Admin Apps
-version: v3.0.20
+description: Update long callbacks with api
+version: v3.0.22
