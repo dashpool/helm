@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Update long callbacks with api
-version: v3.0.22
+description: Admin with log output
+version: v3.0.23

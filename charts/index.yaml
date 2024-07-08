@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-07-08T17:33:38.087355253+02:00'
+    description: Admin with log output
+    digest: 93daafbf471ae288f88825d0df7792b741b7b8cc54ea94e545aafade11554a18
+    name: dashpool
+    urls:
+    - dashpool-v3.0.23.tgz
+    version: v3.0.23
+  - apiVersion: v2
     created: '2024-06-05T16:30:54.633658597+02:00'
     description: Update long callbacks with api
     digest: e51dc67d7b6a58f3073e5ef1e4a80c9eabca8afb6987bb99e768e3cb6cb0b5c8
@@ -153,4 +161,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-06-05T16:30:54.546890532+02:00'
+generated: '2024-07-08T17:33:37.924363639+02:00'
