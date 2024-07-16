@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-07-16T14:19:02.30128837+02:00'
+    description: Admin add app fix
+    digest: 0eece745bd61a658d10c6fc6aab5229fdf80df8805240765ea91be98e3e4b994
+    name: dashpool
+    urls:
+    - dashpool-v3.0.24.tgz
+    version: v3.0.24
+  - apiVersion: v2
     created: '2024-07-08T17:33:38.087355253+02:00'
     description: Admin with log output
     digest: 93daafbf471ae288f88825d0df7792b741b7b8cc54ea94e545aafade11554a18
@@ -161,4 +169,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-07-08T17:33:37.924363639+02:00'
+generated: '2024-07-16T14:19:02.095244808+02:00'

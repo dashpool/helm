@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Admin with log output
-version: v3.0.23
+description: Admin add app fix
+version: v3.0.24
