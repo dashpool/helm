@@ -7,7 +7,7 @@ components:
   localai: false
   chatai: true
 
-  version: v3.0.24
+  version: v3.0.25
 
 
 namespaces:
