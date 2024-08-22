@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: Admin app with cron addon
-version: v3.0.25
+description: update the cron for better db cleanup
+version: v3.0.27

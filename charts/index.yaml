@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-08-22T15:16:28.712242033+02:00'
+    description: update the cron for better db cleanup
+    digest: a178974e5121269760d224ed506a2d637198548d192ac77dfd744eca713c6bd9
+    name: dashpool
+    urls:
+    - dashpool-v3.0.27.tgz
+    version: v3.0.27
+  - apiVersion: v2
     created: '2024-08-06T09:43:07.582064775+02:00'
     description: Admin app with cron addon
     digest: 24a76d5960a307f69e1e610064dd99473532577050cd415e073b0f6fb9b8ab38
@@ -177,4 +185,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-08-06T09:43:07.350779157+02:00'
+generated: '2024-08-22T15:16:28.535416738+02:00'
