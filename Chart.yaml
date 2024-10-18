@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: update basecontainer and deployment configmap
-version: v3.0.29
+description: middleware with contentType and contentEncoding
+version: v3.0.30

@@ -82,10 +82,10 @@ data:
 
         dashmiddleware:
           moduleName: github.com/dashpool/dashmiddleware
-          version: v0.0.29
+          version: v0.0.30
         stripcookie:
           moduleName: github.com/portofrotterdam/stripcookie
-          version: v0.1.0          
+          version: v0.1.0
 
 
 ---
