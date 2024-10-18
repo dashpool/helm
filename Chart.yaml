@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: update the cron for better db cleanup
-version: v3.0.28
+description: update basecontainer and deployment configmap
+version: v3.0.29
