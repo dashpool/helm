@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-10-25T17:50:51.315240172+02:00'
+    description: fix gzip issues
+    digest: e313b9f1157596a7d110f080d75e58bedc80971c78e0b4101340b829d6d6c055
+    name: dashpool
+    urls:
+    - dashpool-v3.0.32.tgz
+    version: v3.0.32
+  - apiVersion: v2
     created: '2024-10-24T14:00:45.715040778+02:00'
     description: fix app url+subpage problem
     digest: 4db157a816574a35d30379a248134b426584d552e12ed838fec8ebc79ccf4f63
@@ -217,4 +225,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-10-24T14:00:45.43232227+02:00'
+generated: '2024-10-25T17:50:51.060906655+02:00'

@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix app url+subpage problem
-version: v3.0.31
+description: fix gzip issues
+version: v3.0.32
