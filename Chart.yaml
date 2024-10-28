@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix gzip issues
-version: v3.0.32
+description: user secrets
+version: v3.0.33
