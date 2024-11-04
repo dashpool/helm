@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: user secrets
-version: v3.0.33
+description: better user secrets + initial user apps
+version: v3.0.34

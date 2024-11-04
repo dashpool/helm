@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-11-04T16:35:18.889880427+01:00'
+    description: better user secrets + initial user apps
+    digest: 56eb5e8ceaef827903f8a85686f1475802df8914616eb43f0833d86d27af63a7
+    name: dashpool
+    urls:
+    - dashpool-v3.0.34.tgz
+    version: v3.0.34
+  - apiVersion: v2
     created: '2024-10-28T17:04:06.253422291+01:00'
     description: user secrets
     digest: 579614590e0737635ad5bd4ef1011cff29faabe93bd89e519518cf3ba42b2e97
@@ -233,4 +241,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-10-28T17:04:05.958416123+01:00'
+generated: '2024-11-04T16:35:18.508426604+01:00'
