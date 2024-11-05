@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: better user secrets + initial user apps
-version: v3.0.34
+description: updates admin dashboard
+version: v3.0.35
