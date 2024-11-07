@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: updates admin dashboard
-version: v3.0.35
+description: update ChatAI GUI
+version: v3.0.36

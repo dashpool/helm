@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-11-07T16:31:07.969462096+01:00'
+    description: update ChatAI GUI
+    digest: 2f299df3e500ed61c1f60dc68d6c806313cce9da3f03d0fd775c190aef59c7bc
+    name: dashpool
+    urls:
+    - dashpool-v3.0.36.tgz
+    version: v3.0.36
+  - apiVersion: v2
     created: '2024-11-05T15:20:53.475509946+01:00'
     description: updates admin dashboard
     digest: 91ecc0637a3923861ccf00b5a2ff1fc2ca46061d2fb65a42599c17baef9654b6
@@ -249,4 +257,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-11-05T15:20:53.171147476+01:00'
+generated: '2024-11-07T16:31:07.605716451+01:00'
