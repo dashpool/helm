@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2024-11-25T14:32:52.596327412+01:00'
+    description: fix secrets without names
+    digest: acacc72bcb8f0f2a151ed1f99d96af1555e95ce09ea5a2221bdb2396c7f21c93
+    name: dashpool
+    urls:
+    - dashpool-v3.0.37.tgz
+    version: v3.0.37
+  - apiVersion: v2
     created: '2024-11-07T16:31:07.969462096+01:00'
     description: update ChatAI GUI
     digest: 2f299df3e500ed61c1f60dc68d6c806313cce9da3f03d0fd775c190aef59c7bc
@@ -257,4 +265,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-11-07T16:31:07.605716451+01:00'
+generated: '2024-11-25T14:32:52.268808102+01:00'
