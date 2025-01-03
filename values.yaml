@@ -39,6 +39,11 @@ crons:
   dbClean: '"0 0 * * *"'
 
 
+mail:
+  host: ""
+  port: 25
+  from: server@dashpool.local
+
 auth:
   skip: true
 

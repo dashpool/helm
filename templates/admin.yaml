@@ -109,6 +109,13 @@ spec:
           value: "{{ .Values.components.dashboard }}"
         - name: SUPER_ADMINS
           value: {{ .Values.auth.superAdmins }}
+        - name: MAIL_HOST
+          value: {{ .Values.mail.host }}
+        - name: MAIL_PORT
+          value: "{{ .Values.mail.port }}"
+        - name: MAIL_FROM
+          value: {{ .Values.mail.from }}
+
       volumes:
       - name: config-volume
         configMap:
@@ -309,6 +316,14 @@ spec:
               value: mongodb://{{ .Values.system.mongohost }}
             - name: MONGODB_DATABASE
               value: {{ .Values.system.dashpooldb }}
+            - name: SUPER_ADMINS
+              value: {{ .Values.auth.superAdmins }}
+            - name: MAIL_HOST
+              value: {{ .Values.mail.host }}
+            - name: MAIL_PORT
+              value: "{{ .Values.mail.port }}"
+            - name: MAIL_FROM
+              value: {{ .Values.mail.from }}              
           restartPolicy: OnFailure
           volumes:
           - name: config-volume
