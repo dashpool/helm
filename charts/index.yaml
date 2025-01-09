@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2025-01-09T16:20:43.653557447+01:00'
+    description: update cron jobs
+    digest: f2a716eae31a9610c8aca8b74cd60f2d8a28f47b910fed7c933f681caa767304
+    name: dashpool
+    urls:
+    - dashpool-v3.0.39.tgz
+    version: v3.0.39
+  - apiVersion: v2
     created: '2024-11-25T14:32:52.596327412+01:00'
     description: fix secrets without names
     digest: acacc72bcb8f0f2a151ed1f99d96af1555e95ce09ea5a2221bdb2396c7f21c93
@@ -265,4 +273,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2024-11-25T14:32:52.268808102+01:00'
+generated: '2025-01-09T16:20:43.346547214+01:00'

@@ -115,6 +115,8 @@ spec:
           value: "{{ .Values.mail.port }}"
         - name: MAIL_FROM
           value: {{ .Values.mail.from }}
+        - name: EXTRA_TABS
+          value: {{ .Values.system.admin_extra_tabs }}
 
       volumes:
       - name: config-volume

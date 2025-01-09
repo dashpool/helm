@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix secrets without names 
-version: v3.0.37
+description: update cron jobs
+version: v3.0.39
