@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: update cron jobs
-version: v3.0.39
+description: bugfix admin mails
+version: v3.0.40
