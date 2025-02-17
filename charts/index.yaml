@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2025-02-17T09:05:30.715556444+01:00'
+    description: bugfix manual cron job
+    digest: 1033c1dbf52446dc1abb2b98d2f025a3bd49861fa989996a5b15d7caf80361d6
+    name: dashpool
+    urls:
+    - dashpool-v3.0.41.tgz
+    version: v3.0.41
+  - apiVersion: v2
     created: '2025-01-09T16:54:00.483302963+01:00'
     description: bugfix admin mails
     digest: cb780851f793f7b215b25f7f7ba7e030ee1b3e9747953da808d00a8ba1930fb3
@@ -281,4 +289,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2025-01-09T16:54:00.250112429+01:00'
+generated: '2025-02-17T09:05:30.076365274+01:00'
