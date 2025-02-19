@@ -38,10 +38,38 @@ spec:
             - "--set-xauthrequest=true"
             - "--pass-access-token=false"
             - "--session-cookie-minimal=true"
+            - "--cookie-samesite=none"
+            - "--cookie-secure=true"          
+            - "--redis-connection-url=redis://redis.{{ .Values.namespaces.system }}.svc.cluster.local:6379"
+            - "--session-store-type=redis"
           resources:
             requests:
               cpu: 10m
               memory: 20Mi  
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:6-alpine
+          ports:
+            - containerPort: 6379
+          command: ["redis-server", "--appendonly", "yes"]
 
 ---
 
@@ -58,6 +86,21 @@ spec:
     - name: http
       port: 4180
 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: {{ .Values.namespaces.system }}
+spec:
+  selector:
+    app: redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
 
 ---
 
