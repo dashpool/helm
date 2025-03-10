@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: bugfix manual cron job
-version: v3.0.41
+description: external and noauth pages
+version: v3.0.42

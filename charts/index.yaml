@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2025-03-10T09:37:42.933327752+01:00'
+    description: external and noauth pages
+    digest: 6a73691367bc76a38614253e0b93313afc0041152d60102dcb18a869a6c43e9f
+    name: dashpool
+    urls:
+    - dashpool-v3.0.42.tgz
+    version: v3.0.42
+  - apiVersion: v2
     created: '2025-02-17T09:05:30.715556444+01:00'
     description: bugfix manual cron job
     digest: 1033c1dbf52446dc1abb2b98d2f025a3bd49861fa989996a5b15d7caf80361d6
@@ -289,4 +297,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2025-02-17T09:05:30.076365274+01:00'
+generated: '2025-03-10T09:37:42.701875089+01:00'
