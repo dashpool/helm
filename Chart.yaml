@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: external and noauth pages
-version: v3.0.42
+description: fix mongo key typo
+version: v3.0.43

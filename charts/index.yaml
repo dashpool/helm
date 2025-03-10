@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2025-03-10T10:07:16.95624238+01:00'
+    description: fix mongo key typo
+    digest: 0c6d7f68783e9cad3531a4c6805a7b7a48f2c947703e7d474057faa0ad5ec62a
+    name: dashpool
+    urls:
+    - dashpool-v3.0.43.tgz
+    version: v3.0.43
+  - apiVersion: v2
     created: '2025-03-10T09:37:42.933327752+01:00'
     description: external and noauth pages
     digest: 6a73691367bc76a38614253e0b93313afc0041152d60102dcb18a869a6c43e9f
@@ -297,4 +305,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2025-03-10T09:37:42.701875089+01:00'
+generated: '2025-03-10T10:07:16.671579614+01:00'
