@@ -2,6 +2,14 @@ apiVersion: v1
 entries:
   dashpool:
   - apiVersion: v2
+    created: '2025-03-18T19:04:50.218778053+01:00'
+    description: update pdf component
+    digest: a7fc2112dcee80247393c1ade43517120b6e1003cba43d599f1bcc84fd0c7b6e
+    name: dashpool
+    urls:
+    - dashpool-v3.0.44.tgz
+    version: v3.0.44
+  - apiVersion: v2
     created: '2025-03-10T10:07:16.95624238+01:00'
     description: fix mongo key typo
     digest: 0c6d7f68783e9cad3531a4c6805a7b7a48f2c947703e7d474057faa0ad5ec62a
@@ -305,4 +313,4 @@ entries:
     urls:
     - dashpool-v3.0.0.tgz
     version: v3.0.0
-generated: '2025-03-10T10:07:16.671579614+01:00'
+generated: '2025-03-18T19:04:49.613504381+01:00'

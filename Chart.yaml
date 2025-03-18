@@ -1,4 +1,4 @@
 apiVersion: v2
 name: dashpool
-description: fix mongo key typo
-version: v3.0.43
+description: update pdf component
+version: v3.0.44
